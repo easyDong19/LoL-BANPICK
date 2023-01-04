@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import BanpickContainer from './components/BanpickContainer';
 import BanpickContent from './components/BanpickContent';
 import BanpickHeader from './components/BanpickHeader';
+import championInfo from './Champions.json';
+import { BanpickProvider, useModeState } from './banpickContext';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -15,16 +17,15 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const visible = true;
   return (
     <>
       <GlobalStyle />
-      {visible && (
+      <BanpickProvider>
         <BanpickContainer>
           <BanpickHeader></BanpickHeader>
           <BanpickContent></BanpickContent>
         </BanpickContainer>
-      )}
+      </BanpickProvider>
     </>
   );
 }

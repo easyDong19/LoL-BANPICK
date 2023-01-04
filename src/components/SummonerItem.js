@@ -1,4 +1,6 @@
+import React from 'react';
 import styled from 'styled-components';
+import { useBanpickState } from '../banpickContext';
 
 const SummonerTile = styled.div`
   display: flex;
@@ -6,6 +8,7 @@ const SummonerTile = styled.div`
   background-color: #1864ab;
   position: relative;
   justify-content: ${(props) => props.align_item};
+  background: rgb(21, 21, 32);
 
   img {
     pointer-events: none;
@@ -39,16 +42,17 @@ const SummonerTile = styled.div`
   }
 `;
 
-function SummonerItem({ children, id, align_item }) {
+function SummonerItem({ id, align_item, champion }) {
+  const src = `/img/splash/${champion}.jpg`;
   return (
     <SummonerTile align_item={align_item}>
-      {<img src='/img/example.jpg' alt='' />}
+      <img src={src} alt='' />
       <div className='playerInfo'>
-        <span className='name'>Aartrox</span>
+        <span className='name'></span>
         <span className='nickname'>{`player${id}`}</span>
       </div>
     </SummonerTile>
   );
 }
 
-export default SummonerItem;
+export default React.memo(SummonerItem);

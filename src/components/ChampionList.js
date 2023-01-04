@@ -1,4 +1,7 @@
+import React, { memo, useState } from 'react';
 import styled from 'styled-components';
+import { useBanpickDispatch, useTeamRefContext } from '../banpickContext';
+import championInfo from '../Champions.json';
 
 const ChampionListContent = styled.div`
   position: relative;
@@ -8,66 +11,67 @@ const ChampionListContent = styled.div`
   background-color: pink;
   overflow: auto;
   flex-flow: row wrap;
-  align-content: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
 
   gap: 10px;
-  padding: 25px 0px 0px 25px;
+  align-content: flex-start;
+
+  padding: 15px 0 40px 0;
 `;
 
-const ChampionItem = styled.div`
-  width: 70px;
-  height: 70px;
-  background-color: aqua;
+const ChampionItem = memo(styled.div`
+  width: 100px;
+  height: 100px;
   cursor: pointer;
   position: relative;
+  &:hover {
+    filter: brightness(50%);
+  }
+  filter: ${({ select }) =>
+    select === 'true' ? 'brightness(50%);cursor: default;' : 'none'};
 
   img {
     width: 100%;
     height: 100%;
     position: absolute;
     object-fit: cover;
+    border: 1px solid gray;
   }
-`;
+`);
 
-function ChampionList() {
+function ChampionList({ search, pos, select_id, action, flag }) {
+  const dispatch = useBanpickDispatch();
+
+  const Waiting = (e, select_id, action, flag) => {
+    if (select_id.includes(Number(e.target.id)) === false && flag) {
+      dispatch({
+        ...action,
+        champion: e.target.alt,
+        current_champion: e.target.id,
+      });
+    }
+  };
+
   return (
     <ChampionListContent>
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>{' '}
-      <ChampionItem>
-        <img src='/img/tile.jpg' alt='' />
-      </ChampionItem>
+      {championInfo.data
+        .filter((item) => item['KR-name'].includes(search))
+        .filter((item) => item['position'].includes(pos))
+        .map((item) => {
+          const src = '/img/tiles/' + item['EN-name'].toLowerCase() + '.jpg';
+          const select = select_id.includes(item.id) ? 'true' : false;
+          return (
+            <ChampionItem
+              key={item.id}
+              onClick={(e) => Waiting(e, select_id, action, flag)}
+              select={select}
+            >
+              <img src={src} alt={item['EN-name'].toLowerCase()} id={item.id} />
+            </ChampionItem>
+          );
+        })}
     </ChampionListContent>
   );
 }
 
-export default ChampionList;
+export default React.memo(ChampionList);

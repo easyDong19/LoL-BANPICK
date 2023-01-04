@@ -22,29 +22,12 @@ const BanItem = styled.div`
   }
 `;
 
-const ban_list = {
-  red: [
-    { id: 1, name: '' },
-    { id: 2, name: '' },
-    { id: 3, name: '' },
-    { id: 4, name: '' },
-    { id: 5, name: '' },
-  ],
-  blue: [
-    { id: 1, name: '' },
-    { id: 2, name: '' },
-    { id: 3, name: '' },
-    { id: 4, name: '' },
-    { id: 5, name: '' },
-  ],
-};
-
-function BanList() {
+function BanList({ ban_list }) {
   return (
     <BanListContent>
-      {ban_list['red'].map((x) => (
+      {ban_list.map((x) => (
         <BanItem key={x.id}>
-          <img src='img/default.png' alt='' />
+          <img src={`img/tiles/${x.name}.jpg`} alt='' />
         </BanItem>
       ))}
     </BanListContent>
