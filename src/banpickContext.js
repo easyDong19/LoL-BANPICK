@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useRef, useState } from 'react';
 
 const ModeState = {
-  visible: true,
+  visible: false,
   timer: false,
   count: 30,
 };

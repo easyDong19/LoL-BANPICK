@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   useBanpickDispatch,
@@ -16,6 +16,7 @@ const Header = styled.div`
   align-items: flex-start;
   padding: 10px 30px;
   height: 10%;
+  background-color: #343a40;
 `;
 const TeamHeader = styled.div`
   flex: 2;
@@ -25,6 +26,7 @@ const TeamHeader = styled.div`
   h1 {
     margin: 0;
     font-size: 48x;
+    color: ${({ color }) => (color === 'blue' ? '#1c7ed6' : '#fa5252')};
   }
 `;
 
@@ -38,16 +40,22 @@ const GameInfoHeader = styled.div`
   flex: 1;
   text-align: center;
 
-  h1,
+  h1 {
+    color: ${({ color }) => (color === 'blue' ? '#1c7ed6' : '#fa5252')};
+    margin: 0;
+  }
   h2 {
     margin: 0;
+    color: #fff;
   }
 `;
 
 const ProgressBar = styled.div`
   width: ${({ count }) => Math.floor((count / 30) * 100) + '%'};
   height: 10px;
+
   background-color: #fab005;
+
   margin: 0 auto;
   transition: ${({ count }) => (count === 30 ? 'none' : 'width 1s linear')};
 `;
@@ -119,21 +127,33 @@ function BanpickHeader() {
 
   Timer(mode.timer);
 
+  const gameInfo = () => {
+    let round = gameref.current.order[0];
+    let ban = false;
+    if (Array.isArray(round)) {
+      round = round[0];
+      ban = true;
+    }
+    return [round, ban];
+  };
+
+  let [round, ban] = gameInfo();
+
   return (
     <>
       <Header>
-        <TeamHeader>
+        <TeamHeader color='blue'>
           <h1>BLUE</h1>
         </TeamHeader>
-        <GameInfoHeader>
+        <GameInfoHeader color={round}>
           <div className='pickOrder'>
-            <h1>BLUE TEAM</h1>
+            <h1>{`${round.toUpperCase()} ${ban ? 'BAN' : 'PICK'}`}</h1>
           </div>
           <div className='remain'>
             <h2>: {mode.timer ? mode.count : '∞'} </h2>
           </div>
         </GameInfoHeader>
-        <RedTeamHeader>
+        <RedTeamHeader color='red'>
           <h1>RED</h1>
         </RedTeamHeader>
       </Header>

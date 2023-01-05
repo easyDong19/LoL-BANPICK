@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const SearchContent = styled.div`
   display: flex;
   height: 50px;
-  background-color: #2b8a3e;
+  background-color: #151520;
   justify-content: space-between;
   align-items: center;
 

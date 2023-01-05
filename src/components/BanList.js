@@ -2,14 +2,13 @@ import styled from 'styled-components';
 
 const BanListContent = styled.div`
   display: flex;
-  background-color: #e5dbff;
+  background-color: #151520;
   flex: 1;
   gap: 2px;
 `;
 const BanItem = styled.div`
   display: flex;
   position: relative;
-  background-color: #faa2c1;
   flex: 1;
   align-items: center;
 

@@ -8,7 +8,7 @@ const ChampionListContent = styled.div`
   width: 100%;
   display: flex;
   height: 700px;
-  background-color: pink;
+  background-color: #343a40;
   overflow: auto;
   flex-flow: row wrap;
   justify-content: center;

@@ -15,7 +15,6 @@ const ContentBlock = styled.div`
   display: flex;
   width: 100%;
   height: 90%;
-  background-color: floralwhite;
 `;
 
 const SummonerContainer = styled.div`
@@ -29,8 +28,8 @@ const PickContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 2;
-  background-color: #6741d9;
   gap: 10px;
+  background-color: #343a40;
 `;
 
 const SelectBtn = styled.button`
@@ -43,7 +42,6 @@ const SelectBtn = styled.button`
   left: 50%;
   z-index: 5px;
   transform: translate(-50%, 50%);
-  background-color: #fff;
   cursor: pointer;
 
   &:hover {

@@ -9,7 +9,7 @@ import { BanpickProvider, useModeState } from './banpickContext';
 const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
-    background: #fefe;
+    background: #868e96;
   }
   *{
     box-sizing: border-box;
